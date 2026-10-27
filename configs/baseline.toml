@@ -1,0 +1,17 @@
+[gp]
+population_size = 100
+generations = 100
+min_initial_depth = 2
+# Profundidade em arestas: raiz = 0; terminal isolado = 0.
+max_depth = 7
+selection = "tournament"
+tournament_size = 2
+# Alternativas exclusivas por evento; reprodução = 1 - pc - pm.
+pc = 0.9
+pm = 0.05
+elite_size = 1
+functions = ["add", "sub", "mul", "div", "sin", "cos"]
+constant_min = -5.0
+constant_max = 5.0
+seed = 0
+

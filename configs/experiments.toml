@@ -1,0 +1,53 @@
+# Plano sequencial. Execute apenas a etapa desejada com --stage.
+# Antes da próxima etapa, atualize baseline.toml com os parâmetros escolhidos
+# pelos resultados de TREINO. Não selecione parâmetros pelo erro de teste.
+[experiment]
+baseline = "baseline.toml"
+datasets = ["synth1", "concrete"]
+seeds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+         15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+
+[[stages]]
+name = "population"
+parameter = "population_size"
+values = [50, 100, 500]
+
+[[stages]]
+name = "generations"
+parameter = "generations"
+values = [50, 100, 500]
+
+[[stages]]
+name = "selection"
+parameter = "selection"
+values = ["tournament", "roulette", "epsilon_lexicase"]
+
+[[stages]]
+name = "crossover"
+parameter = "pc"
+values = [0.9, 0.6]
+
+[[stages]]
+name = "mutation"
+parameter = "pm"
+values = [0.05, 0.3]
+# Mantém pc fixo em 0.6 para que ambas as alternativas sejam válidas.
+[stages.fixed]
+pc = 0.6
+
+[[stages]]
+name = "operators"
+# Comparação adicional dos dois pares.
+configurations = [{pc = 0.9, pm = 0.05}, {pc = 0.6, pm = 0.3}]
+
+[[stages]]
+name = "elitism"
+parameter = "elite_size"
+values = [1, 0]
+
+[[stages]]
+name = "transfer"
+# Use a configuração escolhida em synth1, sem novo ajuste em synth2.
+datasets = ["synth2"]
+configurations = [{}]
+
